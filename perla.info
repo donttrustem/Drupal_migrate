@@ -1,7 +1,8 @@
-name = "perla"
+name = "Perla"
 package = "Migration"
 core = 7.x
 
 dependencies[] = node
+dependencies[] = migrate
 
 files[] = perla.inc
