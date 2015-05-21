@@ -9,8 +9,8 @@
  * XML import from La Perla Class.
  */
 class LaPerlaxmlimport extends XMLMigration {
-  public function __construct() {
-    parent::__construct();
+  public function __construct($arguments) {
+    parent::__construct($arguments);
     $this->description = t('XML feed of La Perla Properties.');
 
     // There isn't a consistent way to automatically identify appropriate
@@ -134,6 +134,7 @@ class LaPerlaxmlimport extends XMLMigration {
       ->arguments(array('format' => 'filtered_html'))
       ->xpath('/document/Clients/Client/properties/Property/images/image/image');
 
+    $unmapped_sources = array();
     $this->addUnmigratedSources($unmapped_sources);
 
     // Declare unmapped destination fields.
