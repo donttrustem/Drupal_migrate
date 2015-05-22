@@ -5,4 +5,4 @@ core = 7.x
 dependencies[] = node
 dependencies[] = migrate
 
-files[] = perla.inc
+files[] = property.inc
