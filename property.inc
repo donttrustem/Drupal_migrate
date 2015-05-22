@@ -17,7 +17,6 @@ class LaPerlaxmlimport extends XMLMigration {
     // "fields" from an XML feed, so we pass an explicit list of source fields.
 
     $source_fields = array(
-      'id' => t('ID'),
       'lang_type' => t('Language'),
       'field_ref_remote' => t('Ref'),
       'field_location_prop_remote' => t('Location'),
@@ -36,25 +35,26 @@ class LaPerlaxmlimport extends XMLMigration {
       'field_image_remote' => t('Property Photos'),
     );
 
-    // The source ID here is the one retrieved from the XML listing URL, and
-    // used to identify the specific item's URL.
-    $this->map = new MigrateSQLMap($this->machineName, array(
-      'ID' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'description' => 'Source ID',
-        ),
-      ),
-      MigrateDestinationNode::getKeySchema()
-    );
-
     $items_url = 'http://xml2u.com/Xml/La%20Perla%20estates_1426/4244_Default.xml';
     $item_xpath = '/document/Clients/Client/properties/Property';
     $item_ID_xpath = 'propertyid';
+
     $items_class = new MigrateItemsXML($items_url, $item_xpath, $item_ID_xpath);
     $this->source = new MigrateSourceMultiItems($items_class, $source_fields);
     $this->destination = new MigrateDestinationNode('property');
+
+    // The source ID here is the one retrieved from the XML listing URL, and
+    // used to identify the specific item's URL.
+    // $sourceid = '/document/FileDetails/orderName/';
+    // $sourceid = 'myspace';
+    $source_key = array(
+      'bar' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    );
+    $this->map = new MigrateSQLMap($this->machineName, $source_key, MigrateDestinationRole::getKeySchema());
 
     // TIP: Note that for XML sources, in addition to the source field passed to
     // addFieldMapping (the name under which it will be saved in the data row
