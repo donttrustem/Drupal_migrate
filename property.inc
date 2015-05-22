@@ -104,9 +104,6 @@ class LaPerlaxmlimport extends XMLMigration {
     $this->addFieldMapping('field_cee_epc_remote', 'field_cee_epc')
       ->xpath('/document/Clients/Client/properties/Property/EPC');
 
-    $this->addFieldMapping('field_cee_epc_remote', 'field_cee_epc')
-      ->xpath('/document/Clients/Client/properties/Property/GEC');
-
     $this->addFieldMapping('field_bedrooms_remote', 'field_bedrooms')
       ->xpath('/document/Clients/Client/properties/Property/Description/bedrooms');
 
@@ -123,16 +120,18 @@ class LaPerlaxmlimport extends XMLMigration {
       ->xpath('/document/Clients/Client/properties/Property/Description/Features');
 
     $this->addFieldMapping('body_remote', 'body')
-      ->arguments(array('format' => 'filtered_html'))
       ->xpath('/document/Clients/Client/properties/Property/Description/description');
+
+    $this->addFieldMapping('body_remote:format', 'filtered_html');
 
     $this->addFieldMapping('field_image_remote:file_replace')
       ->defaultValue(MigrateFile::FILE_EXISTS_REUSE); //FILE_EXISTS_REUSE is in the MigrateFile class
 
 
     $this->addFieldMapping('field_image_remote:source_dir', 'field_image')
-      ->arguments(array('format' => 'filtered_html'))
       ->xpath('/document/Clients/Client/properties/Property/images/image/image');
+
+    $this->addFieldMapping('field_image_remote:format', 'filtered_html');
 
     $unmapped_sources = array();
     $this->addUnmigratedSources($unmapped_sources);
