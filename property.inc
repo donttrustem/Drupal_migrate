@@ -76,7 +76,7 @@ class LaPerlaxmlimport extends XMLMigration {
     $this->source = new MigrateSourceList(new MigrateListXML($list_url),
       new MigrateItemXML($item_url), $fields);
 
-    $this->destination = new MigrateDestinationNode('Property');
+    $this->destination = new MigrateDestinationNode('property');
 
     // TIP: Note that for XML sources, in addition to the source field passed to
     // addFieldMapping (the name under which it will be saved in the data row
