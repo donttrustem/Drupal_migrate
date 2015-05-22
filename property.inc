@@ -49,40 +49,17 @@ class LaPerlaxmlimport extends XMLMigration {
       MigrateDestinationNode::getKeySchema()
     );
 
-    // Source list URL.
-    $list_url = 'http://xml2u.com/Xml/La%20Perla%20estates_1426/4244_Default.xml';
-
-    // Each ID retrieved from the list URL will be plugged into :id in the
-    // item URL to fetch the specific objects.
-    // @todo: Add langtype for importing translated content.
-    $item_url = 'http://www.laperlaestates.com/view-all-properties?view=details&amp;catitemid=:id';
-
-    // Commented out for testing.
-
-    //$items_url = 'http://xml2u.com/Xml/La%20Perla%20estates_1426/4244_Default.xml';
-    //$item_xpath = '/document/Clients/Client/properties/Property';  // relative to document
-    // $item_ID_xpath = 'propertyid';         // relative to item_xpath and gets assembled
-                                             // into full path /producers/producer/sourceid
-
-    // $items_class = new MigrateItemsXML($items_url, $item_xpath, $item_ID_xpath);
-    //$this->source = new MigrateSourceMultiItems($items_class, $fields);
-    //$this->destination = new MigrateDestinationNode('property');
-
-    // We use the MigrateSourceList class for any source where we obtain the
-    // list of IDs to process separately from the data for each item. The
-    // listing and item are represented by separate classes, so for example we
-    // could replace the XML listing with a file directory listing, or the XML
-    // item with a JSON item.
-    $this->source = new MigrateSourceList(new MigrateListXML($list_url),
-      new MigrateItemXML($item_url), $source_fields);
-
+    $items_url = 'http://xml2u.com/Xml/La%20Perla%20estates_1426/4244_Default.xml';
+    $item_xpath = '/document/Clients/Client/properties/Property';
+    $item_ID_xpath = 'propertyid';
+    $items_class = new MigrateItemsXML($items_url, $item_xpath, $item_ID_xpath);
+    $this->source = new MigrateSourceMultiItems($items_class, $source_fields);
     $this->destination = new MigrateDestinationNode('property');
-dd($this->destination);
+
     // TIP: Note that for XML sources, in addition to the source field passed to
     // addFieldMapping (the name under which it will be saved in the data row
     // passed through the migration process) we specify the Xpath used to retrieve
     // the value from the XML.
-
     $this->addFieldMapping('field_ref', 'field_ref_remote')
       ->xpath('/document/Clients/Client/properties/Property/reference');
 
