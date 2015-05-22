@@ -60,55 +60,57 @@ class LaPerlaxmlimport extends XMLMigration {
     // addFieldMapping (the name under which it will be saved in the data row
     // passed through the migration process) we specify the Xpath used to retrieve
     // the value from the XML.
-    $this->addFieldMapping('field_ref', 'field_ref_remote')
-      ->xpath('/document/Clients/Client/properties/Property/reference');
-
-    $this->addFieldMapping('field_location_prop', 'field_location_prop_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Address/location');
-
     $this->addFieldMapping('title', 'title_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/title');
+      ->defaultValue('Foobar');
+    // $this->addFieldMapping('field_ref', 'field_ref_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/reference');
 
-    $this->addFieldMapping('field_price', 'field_price_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Address/Price/price');
+    // $this->addFieldMapping('field_location_prop', 'field_location_prop_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Address/location');
 
-    $this->addFieldMapping('field_status', 'field_status_remote')
-      ->xpath('/document/Clients/Client/properties/Property/category');
+    // $this->addFieldMapping('title', 'title_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/title');
 
-    $this->addFieldMapping('field_listing_type', 'field_listing_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/propertyType');
+    // $this->addFieldMapping('field_price', 'field_price_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Address/Price/price');
 
-    $this->addFieldMapping('field_cee_epc', 'field_cee_epc_remote')
-      ->xpath('/document/Clients/Client/properties/Property/EPC');
+    // $this->addFieldMapping('field_status', 'field_status_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/category');
 
-    $this->addFieldMapping('field_bedrooms', 'field_bedrooms_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/bedrooms');
+    // $this->addFieldMapping('field_listing_type', 'field_listing_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/propertyType');
 
-    $this->addFieldMapping('field_bathrooms', 'field_bathrooms_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/fullBathrooms');
+    // $this->addFieldMapping('field_cee_epc', 'field_cee_epc_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/EPC');
 
-    $this->addFieldMapping('field_sq_ft_', 'field_sq_ft_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/FloorSize/floorSize');
+    // $this->addFieldMapping('field_bedrooms', 'field_bedrooms_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/bedrooms');
 
-    $this->addFieldMapping('field_lot_size', 'field_lot_size_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/PlotSize/plotSize');
+    // $this->addFieldMapping('field_bathrooms', 'field_bathrooms_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/fullBathrooms');
 
-    $this->addFieldMapping('field_interior_features', 'field_interior_features_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/Features');
+    // $this->addFieldMapping('field_sq_ft_', 'field_sq_ft_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/FloorSize/floorSize');
 
-    $this->addFieldMapping('body', 'body_remote')
-      ->xpath('/document/Clients/Client/properties/Property/Description/description');
+    // $this->addFieldMapping('field_lot_size', 'field_lot_size_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/PlotSize/plotSize');
 
-    $this->addFieldMapping('body_remote:format', 'filtered_html');
+    // $this->addFieldMapping('field_interior_features', 'field_interior_features_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/Features');
 
-    $this->addFieldMapping('field_image:file_replace')
-      ->defaultValue(MigrateFile::FILE_EXISTS_REUSE); //FILE_EXISTS_REUSE is in the MigrateFile class
+    // $this->addFieldMapping('body', 'body_remote')
+    //   ->xpath('/document/Clients/Client/properties/Property/Description/description');
+
+    // $this->addFieldMapping('body_remote:format', 'filtered_html');
+
+    // $this->addFieldMapping('field_image:file_replace')
+    //   ->defaultValue(MigrateFile::FILE_EXISTS_REUSE); //FILE_EXISTS_REUSE is in the MigrateFile class
 
 
-    $this->addFieldMapping('field_image', 'field_image_remote:source_dir')
-      ->xpath('/document/Clients/Client/properties/Property/images/image/image');
+    // $this->addFieldMapping('field_image', 'field_image_remote:source_dir')
+    //   ->xpath('/document/Clients/Client/properties/Property/images/image/image');
 
-    $this->addFieldMapping('field_image:format', 'filtered_html');
+    // $this->addFieldMapping('field_image:format', 'filtered_html');
 
     $unmapped_sources = array();
     $this->addUnmigratedSources($unmapped_sources);
