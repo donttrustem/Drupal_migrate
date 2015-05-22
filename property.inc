@@ -16,7 +16,7 @@ class LaPerlaxmlimport extends XMLMigration {
     // There isn't a consistent way to automatically identify appropriate
     // "fields" from an XML feed, so we pass an explicit list of source fields.
 
-    $fields = array(
+    $source_fields = array(
       'id' => t('ID'),
       'lang_type' => t('Language'),
       'field_ref_remote' => t('Ref'),
@@ -74,7 +74,7 @@ class LaPerlaxmlimport extends XMLMigration {
     // could replace the XML listing with a file directory listing, or the XML
     // item with a JSON item.
     $this->source = new MigrateSourceList(new MigrateListXML($list_url),
-      new MigrateItemXML($item_url), $fields);
+      new MigrateItemXML($item_url), $source_fields);
 
     $this->destination = new MigrateDestinationNode('property');
 
