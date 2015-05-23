@@ -17,22 +17,18 @@ class LaPerlaxmlimport extends XMLMigration {
     // "fields" from an XML feed, so we pass an explicit list of source fields.
 
     $source_fields = array(
-      'lang_type' => t('Language'),
-      'field_ref_remote' => t('Ref'),
-      'field_location_prop_remote' => t('Location'),
-      'title_remote' => t('Title'),
-      'field_price_remote' => t('Price'),
-      'field_status_remote' => t('Status'),
-      'field_listing_type_remote' => t('Listing Type'),
-      'field_property_type_remote' => t('Property Type'),
-      'field_cee_epc_remote' => t('CEE/EPC'),
-      'field_bedrooms_remote' => t('Bedrooms'),
-      'field_bathrooms_remote' => t('Bathrooms'),
-      'field_sq_ft_remote' => t('Dwelling Size'),
-      'field_lot_size_remote' => t('Plot Size'),
-      'field_interior_features_remote' => t('Home Features'),
-      'body_remote' => t('Description'),
-      'field_image_remote' => t('Property Photos'),
+      'reference' => t('Ref'),
+      'location' => t('Location'),
+      'title' => t('Title'),
+      'price' => t('Price'),
+      'category' => t('Status'),
+      'propertyType' => t('Property Type'),
+      'bedrooms' => t('Bedrooms'),
+      'bathrooms' => t('Bathrooms'),
+      'floorSize' => t('Dwelling Size'),
+      'plotSize' => t('Plot Size'),
+      'description' => t('Description'),
+      'image' => t('Property Photos'),
     );
 
     $items_url = 'http://xml2u.com/Xml/La%20Perla%20estates_1426/4244_Default.xml';
@@ -42,7 +38,7 @@ class LaPerlaxmlimport extends XMLMigration {
     $items_class = new MigrateItemsXML($items_url, $item_xpath, $item_ID_xpath);
     $this->source = new MigrateSourceMultiItems($items_class, $source_fields);
     $this->destination = new MigrateDestinationNode('property');
-
+dd($this->destination);
     // The source ID here is the one retrieved from the XML listing URL, and
     // used to identify the specific item's URL.
     // $sourceid = '/document/FileDetails/orderName/';
@@ -52,6 +48,7 @@ class LaPerlaxmlimport extends XMLMigration {
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
+		'description' => 'Title',
       ),
     );
     $this->map = new MigrateSQLMap($this->machineName, $source_key, MigrateDestinationRole::getKeySchema());
@@ -60,16 +57,17 @@ class LaPerlaxmlimport extends XMLMigration {
     // addFieldMapping (the name under which it will be saved in the data row
     // passed through the migration process) we specify the Xpath used to retrieve
     // the value from the XML.
-    $this->addFieldMapping('title', 'title_remote')
-      ->defaultValue('Foobar');
-    // $this->addFieldMapping('field_ref', 'field_ref_remote')
-    //   ->xpath('/document/Clients/Client/properties/Property/reference');
+    //$this->addFieldMapping('title', 'title_remote')
+     // ->defaultValue('Foobar');
+
+     //$this->addFieldMapping('field_ref', 'field_ref_remote')
+     //  ->xpath('/document/Clients/Client/properties/Property/reference');
 
     // $this->addFieldMapping('field_location_prop', 'field_location_prop_remote')
     //   ->xpath('/document/Clients/Client/properties/Property/Address/location');
 
-    // $this->addFieldMapping('title', 'title_remote')
-    //   ->xpath('/document/Clients/Client/properties/Property/Description/title');
+    $this->addFieldMapping('title', 'title')
+      ->xpath('title');
 
     // $this->addFieldMapping('field_price', 'field_price_remote')
     //   ->xpath('/document/Clients/Client/properties/Property/Address/Price/price');
